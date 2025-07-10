@@ -1,123 +1,255 @@
-mixed-port: 7890
-allow-lan: true
-mode: rule
-log-level: info
-external-controller: 127.0.0.1:9090
-secret: ""
 
-profile:
-  store-selected: true
-  store-fake-ip: true
-
-dns:
-  enable: true
-  listen: 0.0.0.0:7874
-  enhanced-mode: fake-ip
-  nameserver:
-    - 1.1.1.1
-    - 8.8.8.8
-    - 94.140.14.14          # AdGuard DNS
-  fallback:
-    - https://dns.cloudflare.com/dns-query
-    - tls://dns.google
-  fake-ip-filter:
-    - '*.lan'
-    - '*.localdomain'
-    - 'localhost'
-    - 'ntp.org'
-    - 'time.windows.com'
-    - '*.nintendo.net'
-    - '*.ntp.org'
-    - '*.msftconnecttest.com'
-
-tun:
-  enable: true
-  stack: system
-  auto-route: true
-  dns-hijack:
-    - 198.18.0.2:53
-  strict-route: true
-
-geox-url:
-  geoip: "https://github.com/Loyalsoldier/geoip/releases/latest/download/geoip.dat"
-  geosite: "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/latest/download/geosite.dat"
-
-proxies:
-  # Masukkan server VLESS kamu di sini (contoh 3 server)
-  - name: "VLESS-SG"
-    type: vless
-    server: sg.example.com
-    port: 443
-    uuid: UUID-SG
-    tls: true
-    network: ws
-    ws-opts:
-      path: /ws
-      headers:
-        Host: sg.example.com
-
-  - name: "VLESS-JP"
-    type: vless
-    server: jp.example.com
-    port: 443
-    uuid: UUID-JP
-    tls: true
-    network: ws
-    ws-opts:
-      path: /ws
-      headers:
-        Host: jp.example.com
-
-  - name: "VLESS-US"
-    type: vless
-    server: us.example.com
-    port: 443
-    uuid: UUID-US
-    tls: true
-    network: ws
-    ws-opts:
-      path: /ws
-      headers:
-        Host: us.example.com
+proxy-providers:
+  YY1:
+    type: file
+    path: "./proxy_provider/YY/YY1.yaml"
+    health-check:
+      enable: true
+      url: http://cp.cloudflare.com/generate_204
+      interval: 300
+  YY2:
+    type: file
+    path: "./proxy_provider/YY/YY2.yaml"
+    health-check:
+      enable: true
+      url: http://cp.cloudflare.com/generate_204
+      interval: 300
+  YY3:
+    type: file
+    path: "./proxy_provider/YY/YY3.yaml"
+    health-check:
+      enable: true
+      url: http://cp.cloudflare.com/generate_204
+      interval: 300
+  YY4:
+    type: file
+    path: "./proxy_provider/YY/YY4.yaml"
+    health-check:
+      enable: true
+      url: http://cp.cloudflare.com/generate_204
+      interval: 300
+  YY5:
+    type: file
+    path: "./proxy_provider/YY/YY5.yaml"
+    health-check:
+      enable: true
+      url: http://cp.cloudflare.com/generate_204
+      interval: 300
+  YY6:
+    type: file
+    path: "./proxy_provider/YY/YY6.yaml"
+    health-check:
+      enable: true
+      url: http://cp.cloudflare.com/generate_204
+      interval: 300
+  YY7:
+    type: file
+    path: "./proxy_provider/YY/YY7.yaml"
+    health-check:
+      enable: true
+      url: http://cp.cloudflare.com/generate_204
+      interval: 300
+  YY8:
+    type: file
+    path: "./proxy_provider/YY/YY8.yaml"
+    health-check:
+      enable: true
+      url: http://cp.cloudflare.com/generate_204
+      interval: 300
 
 proxy-groups:
+  - name: YY1
+    type: select
+    disable-udp: false
+    use:
+      - YY1
+    url: 'http://www.gstatic.com/generate_204'
+    interval: 300
+  - name: YY2
+    type: select
+    disable-udp: false
+    use:
+      - YY2
+    url: 'http://www.gstatic.com/generate_204'
+    interval: 300
+  - name: YY3
+    type: select
+    disable-udp: false
+    use:
+      - YY3
+    url: 'http://www.gstatic.com/generate_204'
+    interval: 300
+  - name: YY4
+    type: select
+    disable-udp: false
+    use:
+      - YY4
+    url: 'http://www.gstatic.com/generate_204'
+    interval: 300
+  - name: YY5
+    type: select
+    disable-udp: false
+    use:
+      - YY5
+    url: 'http://www.gstatic.com/generate_204'
+    interval: 300
+  - name: YY6
+    type: select
+    disable-udp: false
+    use:
+      - YY6
+    url: 'http://www.gstatic.com/generate_204'
+    interval: 300
+  - name: YY7
+    type: select
+    disable-udp: false
+    use:
+      - YY7
+    url: 'http://www.gstatic.com/generate_204'
+    interval: 300
+  - name: YY8
+    type: select
+    disable-udp: false
+    use:
+      - YY8
+    url: 'http://www.gstatic.com/generate_204'
+    interval: 300
+
+  - name: 🧭 Default
+    type: select
+    proxies:
+      - 🚀 AutoProxy
+      - YY1
+      - YY2
+      - YY3
+      - YY4
+      - YY5
+      - YY6
+      - YY7
+      - YY8
+      - Ping YY1
+      - Ping YY2
+      - Ping YY3
+      - Ping YY4
+      - Ping YY5
+      - Ping YY6
+      - Ping YY7
+      - Ping YY8
+      - Fallback YY1
+      - Fallback YY2
+      - Fallback YY3
+      - Fallback YY4
+      - Fallback YY5
+      - Fallback YY6
+      - Fallback YY7
+      - Fallback YY8
+      - LB YY1
+      - LB YY2
+      - LB YY3
+      - LB YY4
+      - LB YY5
+      - LB YY6
+      - LB YY7
+      - LB YY8
+      - DIRECT
+      - REJECT
+
   - name: 🚀 AutoProxy
     type: url-test
     proxies:
-      - "VLESS-SG"
-      - "VLESS-JP"
-      - "VLESS-US"
-    url: "http://www.gstatic.com/generate_204"
+      - YY1
+      - YY2
+      - YY3
+      - YY4
+      - YY5
+      - YY6
+      - YY7
+      - YY8
+    url: 'http://www.gstatic.com/generate_204'
     interval: 300
 
   - name: 🎮 Game
     type: select
     proxies:
       - 🚀 AutoProxy
+      - YY1
+      - YY2
+      - YY3
+      - YY4
+      - YY5
+      - YY6
+      - YY7
+      - YY8
       - DIRECT
 
   - name: 📺 Streaming
     type: select
     proxies:
       - 🚀 AutoProxy
+      - YY1
+      - YY2
+      - YY3
+      - YY4
+      - YY5
+      - YY6
+      - YY7
+      - YY8
       - DIRECT
 
   - name: 💬 Sosmed
     type: select
     proxies:
       - 🚀 AutoProxy
+      - YY1
+      - YY2
+      - YY3
+      - YY4
+      - YY5
+      - YY6
+      - YY7
+      - YY8
+      - DIRECT
+      
+  - name: Online Shop 🛒
+    type: select
+    proxies:
+      - 🚀 AutoProxy
+      - YY1
+      - YY2
+      - YY3
+      - YY4
+      - YY5
+      - YY6
+      - YY7
+      - YY8
+      - DIRECT
+      
+  - name: MBanking 💲
+    type: select
+    proxies:
+      - 🚀 AutoProxy
+      - YY1
+      - YY2
+      - YY3
+      - YY4
+      - YY5
+      - YY6
+      - YY7
+      - YY8
       - DIRECT
 
   - name: 🧲 Torrent
     type: select
     proxies:
       - 🚀 AutoProxy
-      - DIRECT
-
-  - name: 🌐 Global
-    type: select
-    proxies:
-      - 🚀 AutoProxy
+      - YY1
+      - YY2
+      - YY3
+      - YY4
+      - YY5
+      - YY6
+      - YY7
+      - YY8
       - DIRECT
 
   - name: 🛑 Iklan
@@ -125,47 +257,256 @@ proxy-groups:
     proxies:
       - REJECT
       - 🚀 AutoProxy
+#ping#
+  - name: Ping YY1
+    type: url-test
+    disable-udp: false
+    use:
+      - YY1
+    url: 'http://www.gstatic.com/generate_204'
+    interval: 3
+    tolerance: 50
+  - name: Ping YY2
+    type: url-test
+    disable-udp: false
+    use:
+      - YY2
+    url: 'http://www.gstatic.com/generate_204'
+    interval: 3
+    tolerance: 50
+  - name: Ping YY3
+    type: url-test
+    disable-udp: false
+    use:
+      - YY3
+    url: 'http://www.gstatic.com/generate_204'
+    interval: 3
+    tolerance: 50
+  - name: Ping YY4
+    type: url-test
+    disable-udp: false
+    use:
+      - YY4
+    url: 'http://www.gstatic.com/generate_204'
+    interval: 3
+    tolerance: 50
+  - name: Ping YY5
+    type: url-test
+    disable-udp: false
+    use:
+      - YY5
+    url: 'http://www.gstatic.com/generate_204'
+    interval: 3
+    tolerance: 50
+  - name: Ping YY6
+    type: url-test
+    disable-udp: false
+    use:
+      - YY6
+    url: 'http://www.gstatic.com/generate_204'
+    interval: 3
+    tolerance: 50
+  - name: Ping YY7
+    type: url-test
+    disable-udp: false
+    use:
+      - YY7
+    url: 'http://www.gstatic.com/generate_204'
+    interval: 3
+    tolerance: 50
+  - name: Ping YY8
+    type: url-test
+    disable-udp: false
+    use:
+      - YY8
+    url: 'http://www.gstatic.com/generate_204'
+    interval: 3
+    tolerance: 50
+#fallback#
+  - name: Fallback YY1
+    type: fallback
+    disable-udp: false
+    use:
+      - YY1
+    url: 'http://www.gstatic.com/generate_204'
+    interval: 3
+  - name: Fallback YY2
+    type: fallback
+    disable-udp: false
+    use:
+      - YY2
+    url: 'http://www.gstatic.com/generate_204'
+    interval: 3
+  - name: Fallback YY3
+    type: fallback
+    disable-udp: false
+    use:
+      - YY3
+    url: 'http://www.gstatic.com/generate_204'
+    interval: 3
+  - name: Fallback YY4
+    type: fallback
+    disable-udp: false
+    use:
+      - YY4
+    url: 'http://www.gstatic.com/generate_204'
+    interval: 3
+  - name: Fallback YY5
+    type: fallback
+    disable-udp: false
+    use:
+      - YY5
+    url: 'http://www.gstatic.com/generate_204'
+    interval: 3
+  - name: Fallback YY6
+    type: fallback
+    disable-udp: false
+    use:
+      - YY6
+    url: 'http://www.gstatic.com/generate_204'
+    interval: 3
+  - name: Fallback YY7
+    type: fallback
+    disable-udp: false
+    use:
+      - YY7
+    url: 'http://www.gstatic.com/generate_204'
+    interval: 3
+  - name: Fallback YY8
+    type: fallback
+    disable-udp: false
+    use:
+      - YY8
+    url: 'http://www.gstatic.com/generate_204'
+    interval: 3
+#loadbalance#
+  - name: LB YY1
+    type: load-balance
+    strategy: round-robin
+    disable-udp: false
+    use:
+      - YY1
+    url: 'http://www.gstatic.com/generate_204'
+    interval: 3
+  - name: LB YY2
+    type: load-balance
+    strategy: round-robin
+    disable-udp: false
+    use:
+      - YY2
+    url: 'http://www.gstatic.com/generate_204'
+    interval: 3
+  - name: LB YY3
+    type: load-balance
+    strategy: round-robin
+    disable-udp: false
+    use:
+      - YY3
+    url: 'http://www.gstatic.com/generate_204'
+    interval: 3
+  - name: LB YY4
+    type: load-balance
+    strategy: round-robin
+    disable-udp: false
+    use:
+      - YY4
+    url: 'http://www.gstatic.com/generate_204'
+    interval: 3
+  - name: LB YY5
+    type: load-balance
+    strategy: round-robin
+    disable-udp: false
+    use:
+      - YY5
+    url: 'http://www.gstatic.com/generate_204'
+    interval: 3
+  - name: LB YY6
+    type: load-balance
+    strategy: round-robin
+    disable-udp: false
+    use:
+      - YY6
+    url: 'http://www.gstatic.com/generate_204'
+    interval: 3
+  - name: LB YY7
+    type: load-balance
+    strategy: round-robin
+    disable-udp: false
+    use:
+      - YY7
+    url: 'http://www.gstatic.com/generate_204'
+    interval: 3
+  - name: LB YY8
+    type: load-balance
+    strategy: round-robin
+    disable-udp: false
+    use:
+      - YY8
+    url: 'http://www.gstatic.com/generate_204'
+    interval: 3
+#================================#
+rule-providers:
+  BlockAds:
+    type: file
+    behavior: classical
+    path: "./rule_provider/rule_yy/rules-blockads.yaml"
+  Game:
+    type: file
+    behavior: classical
+    path: "./rule_provider/rule_yy/rules-game.yaml"
+  Sosmed:
+    type: file
+    behavior: classical
+    path: "./rule_provider/rule_yy/rules-sosmed.yaml"
+  Stream:
+    type: file
+    behavior: classical
+    path: "./rule_provider/rule_yy/rules-stream.yaml"
+  Olshop:
+    type: file
+    behavior: classical
+    path: "./rule_provider/rule_yy/rules-olshop.yaml"
+  Bank:
+    type: file
+    behavior: classical
+    path: "./rule_provider/rule_yy/rules-bank.yaml"
 
-  - name: 🧭 Default
-    type: select
-    proxies:
-      - 🚀 AutoProxy
-      - DIRECT
-
+#================================#
 rules:
   # ============ Adblock & Tracking ============
-  - DOMAIN-SUFFIX,ad.com,🛑 Iklan
-  - DOMAIN-SUFFIX,doubleclick.net,🛑 Iklan
-  - DOMAIN-SUFFIX,googlesyndication.com,🛑 Iklan
-  - DOMAIN-SUFFIX,facebook.net,🛑 Iklan
-  - DOMAIN-SUFFIX,tracking.com,🛑 Iklan
-
+  - RULE-SET,BlockAds,🛑 Iklan
   # ============ Streaming ============
+  - RULE-SET,Stream,📺 Streaming
   - GEOSITE,netflix,📺 Streaming
   - GEOSITE,youtube,📺 Streaming
   - GEOSITE,spotify,📺 Streaming
 
   # ============ Game ============
+  - RULE-SET,Game,🎮 Game
   - GEOSITE,steam,🎮 Game
   - GEOSITE,epicgames,🎮 Game
   - GEOSITE,xbox,🎮 Game
   - GEOSITE,playstation,🎮 Game
 
   # ============ Sosmed ============
+  - RULE-SET,Sosmed,💬 Sosmed
   - GEOSITE,facebook,💬 Sosmed
   - GEOSITE,twitter,💬 Sosmed
   - GEOSITE,instagram,💬 Sosmed
   - GEOSITE,tiktok,💬 Sosmed
-
+  # ============ Online Shop ============
+  - RULE-SET,Olshop,Online Shop 🛒
+  # ============ Banking ============
+  - RULE-SET,Bank,MBanking 💲
   # ============ Torrent ============
   - GEOSITE,tracker,🧲 Torrent
   - GEOIP,PRIVATE,🧲 Torrent
 
   # ============ Bypass Lokal ============
-  - GEOIP,CN,DIRECT
-  - GEOSITE,cn,DIRECT
-  - DOMAIN-SUFFIX,local,DIRECT
-  - DOMAIN,localhost,DIRECT
+  - GEOIP,CN,🧭 Default
+  - GEOSITE,cn,🧭 Default
+  - DOMAIN-SUFFIX,local,🧭 Default
+  - DOMAIN,localhost,🧭 Default
 
   # ============ Default ============
   - MATCH,🧭 Default
