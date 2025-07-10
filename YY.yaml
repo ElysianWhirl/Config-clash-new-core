@@ -1,0 +1,171 @@
+mixed-port: 7890
+allow-lan: true
+mode: rule
+log-level: info
+external-controller: 127.0.0.1:9090
+secret: ""
+
+profile:
+  store-selected: true
+  store-fake-ip: true
+
+dns:
+  enable: true
+  listen: 0.0.0.0:7874
+  enhanced-mode: fake-ip
+  nameserver:
+    - 1.1.1.1
+    - 8.8.8.8
+    - 94.140.14.14          # AdGuard DNS
+  fallback:
+    - https://dns.cloudflare.com/dns-query
+    - tls://dns.google
+  fake-ip-filter:
+    - '*.lan'
+    - '*.localdomain'
+    - 'localhost'
+    - 'ntp.org'
+    - 'time.windows.com'
+    - '*.nintendo.net'
+    - '*.ntp.org'
+    - '*.msftconnecttest.com'
+
+tun:
+  enable: true
+  stack: system
+  auto-route: true
+  dns-hijack:
+    - 198.18.0.2:53
+  strict-route: true
+
+geox-url:
+  geoip: "https://github.com/Loyalsoldier/geoip/releases/latest/download/geoip.dat"
+  geosite: "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/latest/download/geosite.dat"
+
+proxies:
+  # Masukkan server VLESS kamu di sini (contoh 3 server)
+  - name: "VLESS-SG"
+    type: vless
+    server: sg.example.com
+    port: 443
+    uuid: UUID-SG
+    tls: true
+    network: ws
+    ws-opts:
+      path: /ws
+      headers:
+        Host: sg.example.com
+
+  - name: "VLESS-JP"
+    type: vless
+    server: jp.example.com
+    port: 443
+    uuid: UUID-JP
+    tls: true
+    network: ws
+    ws-opts:
+      path: /ws
+      headers:
+        Host: jp.example.com
+
+  - name: "VLESS-US"
+    type: vless
+    server: us.example.com
+    port: 443
+    uuid: UUID-US
+    tls: true
+    network: ws
+    ws-opts:
+      path: /ws
+      headers:
+        Host: us.example.com
+
+proxy-groups:
+  - name: 🚀 AutoProxy
+    type: url-test
+    proxies:
+      - "VLESS-SG"
+      - "VLESS-JP"
+      - "VLESS-US"
+    url: "http://www.gstatic.com/generate_204"
+    interval: 300
+
+  - name: 🎮 Game
+    type: select
+    proxies:
+      - 🚀 AutoProxy
+      - DIRECT
+
+  - name: 📺 Streaming
+    type: select
+    proxies:
+      - 🚀 AutoProxy
+      - DIRECT
+
+  - name: 💬 Sosmed
+    type: select
+    proxies:
+      - 🚀 AutoProxy
+      - DIRECT
+
+  - name: 🧲 Torrent
+    type: select
+    proxies:
+      - 🚀 AutoProxy
+      - DIRECT
+
+  - name: 🌐 Global
+    type: select
+    proxies:
+      - 🚀 AutoProxy
+      - DIRECT
+
+  - name: 🛑 Iklan
+    type: select
+    proxies:
+      - REJECT
+      - 🚀 AutoProxy
+
+  - name: 🧭 Default
+    type: select
+    proxies:
+      - 🚀 AutoProxy
+      - DIRECT
+
+rules:
+  # ============ Adblock & Tracking ============
+  - DOMAIN-SUFFIX,ad.com,🛑 Iklan
+  - DOMAIN-SUFFIX,doubleclick.net,🛑 Iklan
+  - DOMAIN-SUFFIX,googlesyndication.com,🛑 Iklan
+  - DOMAIN-SUFFIX,facebook.net,🛑 Iklan
+  - DOMAIN-SUFFIX,tracking.com,🛑 Iklan
+
+  # ============ Streaming ============
+  - GEOSITE,netflix,📺 Streaming
+  - GEOSITE,youtube,📺 Streaming
+  - GEOSITE,spotify,📺 Streaming
+
+  # ============ Game ============
+  - GEOSITE,steam,🎮 Game
+  - GEOSITE,epicgames,🎮 Game
+  - GEOSITE,xbox,🎮 Game
+  - GEOSITE,playstation,🎮 Game
+
+  # ============ Sosmed ============
+  - GEOSITE,facebook,💬 Sosmed
+  - GEOSITE,twitter,💬 Sosmed
+  - GEOSITE,instagram,💬 Sosmed
+  - GEOSITE,tiktok,💬 Sosmed
+
+  # ============ Torrent ============
+  - GEOSITE,tracker,🧲 Torrent
+  - GEOIP,PRIVATE,🧲 Torrent
+
+  # ============ Bypass Lokal ============
+  - GEOIP,CN,DIRECT
+  - GEOSITE,cn,DIRECT
+  - DOMAIN-SUFFIX,local,DIRECT
+  - DOMAIN,localhost,DIRECT
+
+  # ============ Default ============
+  - MATCH,🧭 Default
