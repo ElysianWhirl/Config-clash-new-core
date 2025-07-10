@@ -198,6 +198,7 @@ proxy-groups:
   - name: 🎮 Game
     type: select
     proxies:
+      - 🧭 Default
       - 🚀 AutoProxy
       - YY1
       - YY2
@@ -212,6 +213,7 @@ proxy-groups:
   - name: 📺 Streaming
     type: select
     proxies:
+      - 🧭 Default
       - 🚀 AutoProxy
       - YY1
       - YY2
@@ -226,6 +228,7 @@ proxy-groups:
   - name: 💬 Sosmed
     type: select
     proxies:
+      - 🧭 Default
       - 🚀 AutoProxy
       - YY1
       - YY2
@@ -240,6 +243,7 @@ proxy-groups:
   - name: Online Shop 🛒
     type: select
     proxies:
+      - 🧭 Default
       - 🚀 AutoProxy
       - YY1
       - YY2
@@ -254,6 +258,7 @@ proxy-groups:
   - name: MBanking 💲
     type: select
     proxies:
+      - 🧭 Default
       - 🚀 AutoProxy
       - YY1
       - YY2
@@ -268,6 +273,7 @@ proxy-groups:
   - name: 🧲 Torrent
     type: select
     proxies:
+      - 🧭 Default
       - 🚀 AutoProxy
       - YY1
       - YY2
@@ -283,6 +289,7 @@ proxy-groups:
     type: select
     proxies:
       - REJECT
+      - 🧭 Default
       - 🚀 AutoProxy
 #ping#
   - name: Ping YY1
