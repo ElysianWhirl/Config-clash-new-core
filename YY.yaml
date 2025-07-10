@@ -1,4 +1,31 @@
 
+profile:
+  store-selected: true
+  store-fake-ip: true
+
+dns:
+  enable: true
+  nameserver:
+    - 1.1.1.1
+    - 8.8.8.8
+    - 94.140.14.14          # AdGuard DNS
+  fallback:
+    - 
+    - 
+  fake-ip-filter:
+    - '*.lan'
+    - '*.localdomain'
+    - 'localhost'
+    - 'ntp.org'
+    - 'time.windows.com'
+    - '*.nintendo.net'
+    - '*.ntp.org'
+    - '*.msftconnecttest.com'
+
+geox-url:
+  geoip: "https://github.com/Loyalsoldier/geoip/releases/latest/download/geoip.dat"
+  geosite: "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/latest/download/geosite.dat"
+
 proxy-providers:
   YY1:
     type: file
